@@ -1,28 +1,13 @@
-import React, { Component } from 'react'
-import {createStore, applyMiddleware, compose} from 'redux'
-import {Provider} from 'react-redux'
-import thunk from 'redux-thunk'
-
-import rootReducer from './rootReducer'
+import React from 'react'
+import { Provider } from 'react-redux'
 import MovieLibrary from './MovieLibrary'
+import configureStore from './store/configureStore'
 
+const store = configureStore()
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-
-const store = createStore(
-  rootReducer,
-  composeEnhancers(applyMiddleware(thunk))
-)
-
-
-class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <MovieLibrary />
-      </Provider>
-    )
-  }
-}
+const App = () =>
+  <Provider store={store}>
+    <MovieLibrary />
+  </Provider>
 
 export default App

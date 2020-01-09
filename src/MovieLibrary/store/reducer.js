@@ -7,7 +7,6 @@ const initialState = {
 export default function movies(state = initialState, action) {
   const {type, payload} = action
   switch (type) {
-
     case FETCH_MOVIES:
       return {
         ...state,
