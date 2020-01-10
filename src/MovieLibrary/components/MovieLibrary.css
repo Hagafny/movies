@@ -1,7 +1,12 @@
 :root {
   --primary: #141414;
-  --light: #F3F3F3;
   --dark: 	#686868;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html, body {
@@ -10,7 +15,7 @@ html, body {
   margin: 0;
   padding: 0;
   background-color: var(--primary);
-  color: var(--light);
+  color: var(--dark);
   font-family: Arial, Helvetica, sans-serif;
   box-sizing: border-box;
   line-height: 1.4;
