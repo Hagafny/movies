@@ -4,12 +4,10 @@ import PropTypes from 'prop-types'
 import { fetchTopRatedMovies } from '../store/actions'
 import TMDBImage from './TMDBImage'
 
-
 import './MovieLibrary.css'
 import { getSortedMovies } from '../store/selectors'
 import MoviesList from './MoviesList'
 import SortingOptions from './SortingOptions'
-
 
 class MovieLibrary extends Component {
   static propTypes = {
@@ -33,16 +31,16 @@ class MovieLibrary extends Component {
 
     return (
       <>
-        <div>
-          <span>Sort by:</span>
-          <SortingOptions />
-        </div>
+      <div className="movieSorter">
+        <span>Sort by:</span>
+        <SortingOptions />
+      </div>
+      <section className="main-container">
 
-        <div className="items">
-          <section className="main-container">
-            {movies.length && <MoviesList movies={movies} handleSelectMovie={this.handleSelectMovie} />}
-          </section>
-        </div>
+
+
+        {movies.length && <MoviesList movies={movies} handleSelectMovie={this.handleSelectMovie} />}
+
 
         {
           selectedMovie &&
@@ -50,6 +48,7 @@ class MovieLibrary extends Component {
             <ExpandedMovieItem movie={selectedMovie} />
           )
         }
+      </section>
       </>
     );
   }

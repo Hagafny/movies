@@ -12,7 +12,6 @@ export default class MoviesList extends PureComponent {
   render() {
     const { movies, handleSelectMovie } = this.props
 
-    console.log('rendering them movies')
     return (
       <div className="movies-list">
         <div className="box">
@@ -26,8 +25,6 @@ export default class MoviesList extends PureComponent {
     )
   }
 }
-
-
 
 class MovieListItem extends Component {
   handleClick = () => {
