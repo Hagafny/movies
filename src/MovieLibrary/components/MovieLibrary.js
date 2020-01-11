@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
 import { fetchTopRatedMovies } from '../store/actions'
 import TMDBImage from './TMDBImage'
 
@@ -36,12 +35,7 @@ class MovieLibrary extends Component {
         <SortingOptions />
       </div>
       <section className="main-container">
-
-
-
         {movies.length && <MoviesList movies={movies} handleSelectMovie={this.handleSelectMovie} />}
-
-
         {
           selectedMovie &&
           (
@@ -66,7 +60,7 @@ const ExpandedMovieItem = ({ movie: { title, original_title, poster_path, overvi
 
       <div className="expended-movie-container">
         <div className="expended-movie-title">
-          <h2>{title}({original_title})</h2>
+          <h2>{title} ({original_title})</h2>
         </div>
 
         <div className="expended-movie-rank">
