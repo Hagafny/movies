@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchTopRatedMovies } from '../store/actions'
+import { fetchNowPlayingMovies } from '../store/actions'
 import TMDBImage from './TMDBImage'
 
 import './MovieLibrary.css'
@@ -20,8 +20,8 @@ class MovieLibrary extends Component {
   handleSelectMovie = item => this.setState({ selectedMovie: item })
 
   componentDidMount() {
-    const { fetchTopRatedMovies } = this.props
-    fetchTopRatedMovies()
+    const { fetchNowPlayingMovies } = this.props
+    fetchNowPlayingMovies(1,2,3)
   }
 
   render() {
@@ -30,19 +30,20 @@ class MovieLibrary extends Component {
 
     return (
       <>
-      <div className="movieSorter">
-        <span>Sort by:</span>
-        <SortingOptions />
-      </div>
-      <section className="main-container">
-        {movies.length && <MoviesList movies={movies} handleSelectMovie={this.handleSelectMovie} />}
-        {
-          selectedMovie &&
-          (
-            <ExpandedMovieItem movie={selectedMovie} />
-          )
-        }
-      </section>
+        <div className="movieSorter">
+          <span>Sort by:</span>
+          <SortingOptions />
+        </div>
+        <section className="main-container">
+          {movies.length && <MoviesList movies={movies} handleSelectMovie={this.handleSelectMovie} />}
+
+          {
+            selectedMovie &&
+            (
+              <ExpandedMovieItem movie={selectedMovie} />
+            )
+          }
+        </section>
       </>
     );
   }
@@ -50,7 +51,7 @@ class MovieLibrary extends Component {
 
 export default connect(state => ({
   movies: getSortedMovies(state)
-}), { fetchTopRatedMovies })(MovieLibrary)
+}), { fetchNowPlayingMovies })(MovieLibrary)
 
 
 const ExpandedMovieItem = ({ movie: { title, original_title, poster_path, overview, vote_average, vote_count } }) => (

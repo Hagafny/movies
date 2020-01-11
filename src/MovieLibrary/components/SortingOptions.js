@@ -8,9 +8,10 @@ class SortingOptions extends Component {
     }
 
     handleChange = e => {
+        const { setSortingMethod } = this.props
         const sortingBy = e.target.value
         this.setState({ sortingBy })
-        this.props.setSortingMethod(sortingBy)
+        setSortingMethod(sortingBy)
     }
 
     render() {

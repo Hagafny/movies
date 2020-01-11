@@ -5,6 +5,8 @@ import {
   FETCH_MOVIES_FAILURE
 } from '../../actionTypes'
 
+import { getMovies } from '../api'
+
 export function setSortingMethod(sortingMethod) {
   return {
     type: SET_SORTING,
@@ -12,19 +14,18 @@ export function setSortingMethod(sortingMethod) {
   }
 }
 
-export function fetchTopRatedMovies() {
-  return dispatch => {
+export function fetchNowPlayingMovies(...pageNumbers) {
+  return async dispatch => {
     dispatch(fetchMoviesStarted());
-
-    fetch('https://api.themoviedb.org/3/movie/now_playing?api_key=54ffed57deb5a7a8688be4de3007e578&language=en-US&page=1')
-      .then((response) => {
-        return response.json()
-      })
-      .then((response) => {
-        dispatch(fetchMoviesSuccess(response.results));
+    
+    const moviePages = pageNumbers.map(pageNumber => getMovies(pageNumber))
+    Promise.all(moviePages)
+      .then(allMoviesByPages => {
+        const moviesToDisplay = allMoviesByPages.reduce((movies, moviePage) => [...movies, ...moviePage], [])
+        dispatch(fetchMoviesSuccess(moviesToDisplay));
       })
       .catch(err => {
-        dispatch(fetchMoviesFailure(err.message));
+        dispatch(fetchMoviesFailure(err));
       });
   }
 }
