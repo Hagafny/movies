@@ -1,8 +1,7 @@
-import { FETCH_MOVIES, SET_SORTING } from '../../actionTypes'
+import { FETCH_MOVIES } from '../../actionTypes'
 
 const initialState = {
   movies: [],
-  sortingBy: 'none'
 }
 
 export default function movieReducer(state = initialState, action) {
@@ -13,11 +12,6 @@ export default function movieReducer(state = initialState, action) {
         ...state,
         movies: payload
       }
-      case SET_SORTING:
-        return {
-          ...state,
-          sortingBy: payload
-        }
     default:
       return state
   }

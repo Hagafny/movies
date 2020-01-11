@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect'
 
 const getMovies = state => state.movieLib.movies
-const getSortingMethod = state => state.movieLib.sortingBy
+const getSortingMethod = state => state.sorting
 
 export const getSortedMovies = createSelector(
     [getMovies, getSortingMethod],
