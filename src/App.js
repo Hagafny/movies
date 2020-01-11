@@ -1,7 +1,7 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import MovieLibrary from './MovieLibrary'
-import configureStore from './store/configureStore'
+import configureStore from './MovieLibrary/store/configureStore'
 
 const store = configureStore()
 

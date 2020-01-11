@@ -1,4 +1,4 @@
-import { FETCH_MOVIES } from '../../actionTypes'
+import { FETCH_MOVIES } from '../../../actionTypes'
 
 const initialState = {
   movies: [],

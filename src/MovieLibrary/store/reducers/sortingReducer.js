@@ -1,4 +1,4 @@
-import { SET_SORTING } from '../../actionTypes'
+import { SET_SORTING } from '../../../actionTypes'
 
 const initialState = 'none'
 
