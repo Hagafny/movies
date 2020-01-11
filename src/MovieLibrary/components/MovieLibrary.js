@@ -4,11 +4,11 @@ import PropTypes from 'prop-types'
 import { fetchTopRatedMovies } from '../store/actions'
 import TMDBImage from './TMDBImage'
 
+
 import './MovieLibrary.css'
-import { getMovies } from '../store/selectors'
+import { getSortedMovies } from '../store/selectors'
 import MoviesList from './MoviesList'
-
-
+import SortingOptions from './SortingOptions'
 
 
 class MovieLibrary extends Component {
@@ -27,18 +27,15 @@ class MovieLibrary extends Component {
     fetchTopRatedMovies()
   }
 
-  handleSortingChange = sortingType => console.log(sortingType)
-
   render() {
     const { movies } = this.props
-
     const { selectedMovie } = this.state
 
     return (
       <>
         <div>
           <span>Sort by:</span>
-          <SortingOptions onChange={this.handleSortingChange} />
+          <SortingOptions />
         </div>
 
         <div className="items">
@@ -53,42 +50,15 @@ class MovieLibrary extends Component {
             <ExpandedMovieItem movie={selectedMovie} />
           )
         }
-
       </>
     );
   }
 }
 
 export default connect(state => ({
-  movies: getMovies(state)
+  movies: getSortedMovies(state)
 }), { fetchTopRatedMovies })(MovieLibrary)
 
-
-
-class SortingOptions extends Component {
-  state = {
-    value: ''
-  }
-
-  handleChange = e => {
-    const selectedValue = e.target.value
-    const { onChange } = this.props
-    this.setState({ value: selectedValue })
-    onChange(selectedValue)
-  }
-
-  render() {
-
-    return (
-      <select value={this.state.value} onChange={this.handleChange}>
-        <option value=""></option>
-        <option value="name_asc">A -> Z</option>
-        <option value="name_desc">Z -> A</option>
-        <option value="rating">Rating</option>
-      </select>
-    )
-  }
-}
 
 const ExpandedMovieItem = ({ movie: { title, original_title, poster_path, overview, vote_average, vote_count } }) => (
   <div id="expendedMovie" className="expanded-movie-item">

@@ -1,4 +1,4 @@
-import { FETCH_MOVIES } from '../../actionTypes'
+import { FETCH_MOVIES, SET_SORTING } from '../../actionTypes'
 import topRatedMovies from '../mocks/topTatedMovies'
 
 export function fetchTopRatedMovies() {
@@ -7,3 +7,11 @@ export function fetchTopRatedMovies() {
     payload: topRatedMovies
   }
 }
+
+export function setSortingMethod(sortingMethod) {
+  return {
+    type: SET_SORTING,
+    payload: sortingMethod
+  }
+}
+

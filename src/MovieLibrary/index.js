@@ -1,5 +1,5 @@
-import reducer from './store/reducer'
+import movieReducer from './store/reducer'
 import MovieLibrary from './components/MovieLibrary'
 
-export {reducer}
+export { movieReducer }
 export default MovieLibrary
