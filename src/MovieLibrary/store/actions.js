@@ -2,10 +2,11 @@ import {
   SET_SORTING,
   FETCH_MOVIES_STARTED,
   FETCH_MOVIES_SUCCESS,
-  FETCH_MOVIES_FAILURE
+  FETCH_MOVIES_FAILURE,
+  FETCH_MORE_MOVIES_SUCCESS,
 } from '../../actionTypes'
 
-import { getMovies } from '../api'
+import TMDB from '../api'
 
 export function setSortingMethod(sortingMethod) {
   return {
@@ -14,15 +15,12 @@ export function setSortingMethod(sortingMethod) {
   }
 }
 
-export function fetchNowPlayingMovies(...pageNumbers) {
-  return async dispatch => {
+export function fetchMoviePage(pageNumber) {
+  return dispatch => {
     dispatch(fetchMoviesStarted());
-    
-    const moviePages = pageNumbers.map(pageNumber => getMovies(pageNumber))
-    Promise.all(moviePages)
-      .then(allMoviesByPages => {
-        const moviesToDisplay = allMoviesByPages.reduce((movies, moviePage) => [...movies, ...moviePage], [])
-        dispatch(fetchMoviesSuccess(moviesToDisplay));
+    TMDB.getMoviePage(pageNumber)
+      .then(moviesOnPage => {
+        dispatch(fetchMoviesSuccess(moviesOnPage));
       })
       .catch(err => {
         dispatch(fetchMoviesFailure(err));
@@ -42,4 +40,27 @@ const fetchMoviesSuccess = movies => ({
 const fetchMoviesFailure = error => ({
   type: FETCH_MOVIES_FAILURE,
   payload: error
+});
+
+
+export function fetchMoreMovies() {
+  return async (dispatch, state) => {
+    // dispatch(fetchMoviesStarted());
+
+    // const moviePages = pageNumbers.map(pageNumber => TMDB.getMovies(pageNumber))
+    // Promise.all(moviePages)
+    //   .then(allMoviesByPages => {
+    //     const moviesToAdd = allMoviesByPages.reduce((movies, moviePage) => [...movies, ...moviePage], [])
+    //     dispatch(fetchMoreMoviesSuccess(moviesToAdd));
+    //   })
+    //   .catch(err => {
+    //     dispatch(fetchMoviesFailure(err));
+    //   });
+  }
+}
+
+
+const fetchMoreMoviesSuccess = moviesToAdd => ({
+  type: FETCH_MORE_MOVIES_SUCCESS,
+  payload: moviesToAdd
 });

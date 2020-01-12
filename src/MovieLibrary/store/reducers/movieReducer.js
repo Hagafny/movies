@@ -19,7 +19,7 @@ export default function movieReducer(state = initialState, action) {
         ...state,
         loading: false,
         error: null,
-        movies: payload
+        movies: [...state.movies, ...payload]
       };
       case FETCH_MOVIES_FAILURE:
         return {

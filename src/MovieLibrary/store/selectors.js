@@ -26,6 +26,7 @@ function byRatingAndVoteCount(a, b) {
 export const getSortedMovies = createSelector(
     [getMovies, getSortingMethod],
     (movies, sortingMethod) => {
+
         switch (sortingMethod) {
             case 'name_asc':
                 return [...movies.sort((a, b) => a.title.localeCompare(b.title))]
@@ -39,19 +40,3 @@ export const getSortedMovies = createSelector(
         }
     }
 )
-
-export const getSortedMovies2 = state => {
-    const movies = getMovies(state)
-    const sortingMethod = getSortingMethod(state)
-    switch (sortingMethod) {
-        case 'name_asc':
-            return [...movies.sort((a, b) => a.title.localeCompare(b.title))]
-        case 'name_desc':
-            return [...movies.sort((a, b) => b.title.localeCompare(a.title))]
-        case 'rating':
-            return [...movies.sort(byRatingAndVoteCount)]
-        case 'none':
-        default:
-            return movies
-    }
-}

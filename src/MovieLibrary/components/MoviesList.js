@@ -9,6 +9,10 @@ export default class MoviesList extends PureComponent {
     movies: PropTypes.array.isRequired
   }
 
+  componentDidMount() {
+
+  }
+
   render() {
     const { movies, handleSelectMovie } = this.props
 
@@ -36,7 +40,7 @@ class MovieListItem extends Component {
     const { movie: { title, poster_path } } = this.props
     return (
       <a href="#expendedMovie" className={'poster'} onClick={this.handleClick}>
-        <TMDBImage src={poster_path} title={title} onClick={this.handleClick} />
+        <TMDBImage src={poster_path} title={title} />
       </a>
     )
   }

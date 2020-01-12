@@ -1,17 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchNowPlayingMovies } from '../store/actions'
+import { fetchMoviePage, fetchMoreMovies } from '../store/actions'
 import TMDBImage from './TMDBImage'
 
 import './MovieLibrary.css'
 import { getSortedMovies } from '../store/selectors'
 import MoviesList from './MoviesList'
 import SortingOptions from './SortingOptions'
+import { debounce } from '../../util/debounce'
 
 class MovieLibrary extends Component {
-  static propTypes = {
-
-  }
 
   state = {
     selectedMovie: null
@@ -20,8 +18,19 @@ class MovieLibrary extends Component {
   handleSelectMovie = item => this.setState({ selectedMovie: item })
 
   componentDidMount() {
-    const { fetchNowPlayingMovies } = this.props
-    fetchNowPlayingMovies(1,2,3)
+    const initialPagesToFetch = [1, 2, 3]
+    const { fetchMoviePage } = this.props
+    initialPagesToFetch.forEach(fetchMoviePage)
+
+
+    // window.addEventListener("scroll", debounce(() => {
+    //   if (
+    //     window.innerHeight + document.documentElement.scrollTop
+    //     >= document.documentElement.offsetHeight - 100) {
+    //       fetchMoreMovies()
+    //   }
+
+    // }, 300));
   }
 
   render() {
@@ -51,7 +60,7 @@ class MovieLibrary extends Component {
 
 export default connect(state => ({
   movies: getSortedMovies(state)
-}), { fetchNowPlayingMovies })(MovieLibrary)
+}), { fetchMoviePage })(MovieLibrary)
 
 
 const ExpandedMovieItem = ({ movie: { title, original_title, poster_path, overview, vote_average, vote_count } }) => (
