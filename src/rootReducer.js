@@ -3,7 +3,7 @@ import { movieReducer, sortingReducer } from './MovieLibrary'
 
 const rootReducer = combineReducers({
   movieLib: movieReducer,
-  sorting: sortingReducer
+  sorting: sortingReducer,
 });
 
 export default rootReducer

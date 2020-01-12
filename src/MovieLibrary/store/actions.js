@@ -3,10 +3,11 @@ import {
   FETCH_MOVIES_STARTED,
   FETCH_MOVIES_SUCCESS,
   FETCH_MOVIES_FAILURE,
-  FETCH_MORE_MOVIES_SUCCESS,
 } from '../../actionTypes'
 
 import TMDB from '../api'
+
+import { getCurrentMoviePageNumber } from './selectors'
 
 export function setSortingMethod(sortingMethod) {
   return {
@@ -15,18 +16,22 @@ export function setSortingMethod(sortingMethod) {
   }
 }
 
-export function fetchMoviePage(pageNumber) {
-  return dispatch => {
+export function fetchMovies(callback) {
+  return (dispatch, getState) => {
     dispatch(fetchMoviesStarted());
-    TMDB.getMoviePage(pageNumber)
+    const moviePageNumber = getCurrentMoviePageNumber(getState())
+    TMDB.getMoviePage(moviePageNumber)
       .then(moviesOnPage => {
         dispatch(fetchMoviesSuccess(moviesOnPage));
+        callback()
       })
       .catch(err => {
         dispatch(fetchMoviesFailure(err));
       });
   }
 }
+
+
 
 const fetchMoviesStarted = () => ({
   type: FETCH_MOVIES_STARTED
@@ -43,24 +48,24 @@ const fetchMoviesFailure = error => ({
 });
 
 
-export function fetchMoreMovies() {
-  return async (dispatch, state) => {
-    // dispatch(fetchMoviesStarted());
+// export function fetchMoreMovies() {
+//   return async (dispatch, state) => {
+//     // dispatch(fetchMoviesStarted());
 
-    // const moviePages = pageNumbers.map(pageNumber => TMDB.getMovies(pageNumber))
-    // Promise.all(moviePages)
-    //   .then(allMoviesByPages => {
-    //     const moviesToAdd = allMoviesByPages.reduce((movies, moviePage) => [...movies, ...moviePage], [])
-    //     dispatch(fetchMoreMoviesSuccess(moviesToAdd));
-    //   })
-    //   .catch(err => {
-    //     dispatch(fetchMoviesFailure(err));
-    //   });
-  }
-}
+//     // const moviePages = pageNumbers.map(pageNumber => TMDB.getMovies(pageNumber))
+//     // Promise.all(moviePages)
+//     //   .then(allMoviesByPages => {
+//     //     const moviesToAdd = allMoviesByPages.reduce((movies, moviePage) => [...movies, ...moviePage], [])
+//     //     dispatch(fetchMoreMoviesSuccess(moviesToAdd));
+//     //   })
+//     //   .catch(err => {
+//     //     dispatch(fetchMoviesFailure(err));
+//     //   });
+//   }
+// }
 
 
-const fetchMoreMoviesSuccess = moviesToAdd => ({
-  type: FETCH_MORE_MOVIES_SUCCESS,
-  payload: moviesToAdd
-});
+// const fetchMoreMoviesSuccess = moviesToAdd => ({
+//   type: FETCH_MORE_MOVIES_SUCCESS,
+//   payload: moviesToAdd
+// });

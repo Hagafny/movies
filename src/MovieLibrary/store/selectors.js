@@ -1,7 +1,8 @@
 import { createSelector } from 'reselect'
 
-const getMovies = state => state.movieLib.movies
-const getSortingMethod = state => state.sorting
+export const getMovies = state => state.movieLib.movies
+export const getSortingMethod = state => state.sorting
+export const getCurrentMoviePageNumber = state => state.movieLib.page
 
 function byRatingAndVoteCount(a, b) {
     if (b.vote_average > a.vote_average) {
@@ -26,7 +27,6 @@ function byRatingAndVoteCount(a, b) {
 export const getSortedMovies = createSelector(
     [getMovies, getSortingMethod],
     (movies, sortingMethod) => {
-
         switch (sortingMethod) {
             case 'name_asc':
                 return [...movies.sort((a, b) => a.title.localeCompare(b.title))]

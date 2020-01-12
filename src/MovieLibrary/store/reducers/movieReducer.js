@@ -1,6 +1,7 @@
 import { FETCH_MOVIES_STARTED, FETCH_MOVIES_SUCCESS, FETCH_MOVIES_FAILURE } from '../../../actionTypes'
 
 const initialState = {
+  page: 1,
   loading: false,
   movies: [],
   error: null
@@ -19,6 +20,7 @@ export default function movieReducer(state = initialState, action) {
         ...state,
         loading: false,
         error: null,
+        page: state.page + 1,
         movies: [...state.movies, ...payload]
       };
       case FETCH_MOVIES_FAILURE:

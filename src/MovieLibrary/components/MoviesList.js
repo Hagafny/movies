@@ -1,21 +1,20 @@
-import React, { Component, PureComponent } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-
 import TMDBImage from './TMDBImage'
 import './MoviesList.css'
 
-export default class MoviesList extends PureComponent {
+export default class MoviesList extends Component {
   static propTypes = {
-    movies: PropTypes.array.isRequired
+    movies: PropTypes.array.isRequired,
+    handleSelectMovie: PropTypes.func.isRequired
   }
 
-  componentDidMount() {
-
+  shouldComponentUpdate(prevProps) {
+    return prevProps.movies !== this.props.movies
   }
 
   render() {
     const { movies, handleSelectMovie } = this.props
-
     return (
       <div className="movies-list">
         <div className="box">
