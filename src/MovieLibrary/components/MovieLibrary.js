@@ -9,7 +9,6 @@ import SortingOptions from './SortingOptions'
 import { debounce } from '../../util/debounce'
 import './MovieLibrary.css'
 
-
 class MovieLibrary extends Component {
   static propTypes = {
     movies: PropTypes.array.isRequired,

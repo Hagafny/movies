@@ -106,7 +106,6 @@ img {
 .expended-movie-overview { grid-area: 3 / 1 / 4 / 2; }
 .expended-movie-poster { grid-area: 1 / 2 / 4 / 3; }
 
-
 @media(max-width: 700px) {
   .box {
     display: grid;
