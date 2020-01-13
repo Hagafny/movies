@@ -23,15 +23,14 @@ export function fetchMovies(callback) {
     TMDB.getMoviePage(moviePageNumber)
       .then(moviesOnPage => {
         dispatch(fetchMoviesSuccess(moviesOnPage));
-        callback()
+        if (typeof callback === typeof Function)
+          callback()
       })
       .catch(err => {
-        dispatch(fetchMoviesFailure(err));
+        dispatch(fetchMoviesFailure(err.message));
       });
   }
 }
-
-
 
 const fetchMoviesStarted = () => ({
   type: FETCH_MOVIES_STARTED
@@ -46,26 +45,3 @@ const fetchMoviesFailure = error => ({
   type: FETCH_MOVIES_FAILURE,
   payload: error
 });
-
-
-// export function fetchMoreMovies() {
-//   return async (dispatch, state) => {
-//     // dispatch(fetchMoviesStarted());
-
-//     // const moviePages = pageNumbers.map(pageNumber => TMDB.getMovies(pageNumber))
-//     // Promise.all(moviePages)
-//     //   .then(allMoviesByPages => {
-//     //     const moviesToAdd = allMoviesByPages.reduce((movies, moviePage) => [...movies, ...moviePage], [])
-//     //     dispatch(fetchMoreMoviesSuccess(moviesToAdd));
-//     //   })
-//     //   .catch(err => {
-//     //     dispatch(fetchMoviesFailure(err));
-//     //   });
-//   }
-// }
-
-
-// const fetchMoreMoviesSuccess = moviesToAdd => ({
-//   type: FETCH_MORE_MOVIES_SUCCESS,
-//   payload: moviesToAdd
-// });
